@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize({
-  database: "notif_db”,             
+  database: "notif_db",
   dialect: 'postgres',
   operatorsAliases: false,
   define: {
@@ -21,7 +21,7 @@ const User = sequelize.define('users', {
   username: {
     type: Sequelize.STRING,
     allowNull: false
-  }, 
+  },
   image: {
     type: Sequelize.STRING,
     allowNull: true
@@ -43,7 +43,7 @@ const Chatroom = sequelize.define('chatrooms', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
-  }, 
+  },
   image: {
     type: Sequelize.STRING,
     allowNull: false
@@ -54,7 +54,7 @@ const Chatroom = sequelize.define('chatrooms', {
   },
   num_people: {
     type: Sequelize.INTEGER,
-    allowNull: false 
+    allowNull: false
   },
   limit_people: {
     type: Sequelize.INTEGER,
@@ -62,7 +62,7 @@ const Chatroom = sequelize.define('chatrooms', {
   }
 });
 
-User.hasMany(Chatrooms, {
+User.hasMany(Chatroom, {
   onDelete: 'cascade',
 });
 
@@ -72,7 +72,7 @@ Chatroom.belongsTo(User, {
   }
 });
 
-User.hasMany(Messages, {
+User.hasMany(Message, {
   onDelete: 'cascade',
 });
 
@@ -82,7 +82,7 @@ Message.belongsTo(User, {
   }
 });
 
-Chatroom.hasMany(Messages, {
+Chatroom.hasMany(Message, {
   onDelete: 'cascade',
 });
 
@@ -94,7 +94,7 @@ Message.belongsTo(Chatroom, {
 
 module.exports = {
   sequelize,
-  User,                                                             
+  User,
   Message,
   Chatroom
 };
