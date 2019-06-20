@@ -64,9 +64,6 @@ const Chatroom = sequelize.define('chatrooms', {
 
 User.hasMany(Chatrooms, {
   onDelete: 'cascade',
-  foreignKey: {
-    allowNull: false
-  }
 });
 
 Chatroom.belongsTo(User, {
@@ -77,9 +74,6 @@ Chatroom.belongsTo(User, {
 
 User.hasMany(Messages, {
   onDelete: 'cascade',
-  foreignKey: {
-    allowNull: false
-  }
 });
 
 Message.belongsTo(User, {
@@ -90,9 +84,6 @@ Message.belongsTo(User, {
 
 Chatroom.hasMany(Messages, {
   onDelete: 'cascade',
-  foreignKey: {
-    allowNull: false
-  }
 });
 
 Message.belongsTo(Chatroom, {
