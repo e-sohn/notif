@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const socket = require('socket.io');
 
 const usersRouter = require('./routes/usersRouter');
 const PORT = process.env.PORT || 3001;
@@ -18,6 +19,12 @@ app.get('/', async(req, res) => {
   res.json({ msg: 'Welcome to class'})
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
+});
+
+const io = socket(server);
+
+io.on('connection', (socket) => {
+  console.log('made socket connection');
 });
