@@ -1,9 +1,10 @@
 import React, {useState, useReducer} from 'react';
+import { postUser } from '../services/apiHelper';
 
 const RegisterForm = () => {
   const [userInput, setUserInput] = useState({
     email: '',
-    userName: '',
+    username: '',
     password: ''
   });
 
@@ -17,9 +18,10 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(userInput);
+    postUser(userInput);
     setUserInput({
       email: '',
-      userName: '',
+      username: '',
       password: ''
     });
   }
@@ -28,9 +30,9 @@ const RegisterForm = () => {
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
       <input type='text' placeholder='Email' name='email' value={userInput.email} onChange={handleChange} />
-      <input type='text' placeholder='Username' name='userName' value={userInput.userName} onChange={handleChange} />
+      <input type='text' placeholder='Username' name='username' value={userInput.username} onChange={handleChange} />
       <input type='text' placeholder='Password' name='password' value={userInput.password} onChange={handleChange} />
-      <input type='Submit' value='Submit' />
+      <input type='Submit' />
     </form>
   );
 }

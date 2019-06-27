@@ -1,9 +1,7 @@
 import axios from 'axios';
-import openSocket from 'socket.io-client';
 
 // const TOKEN = "f9acf3e3-79f8-4362-8cdd-3765c3f6f38e";
 const BASE_URL = 'http://localhost:3001';
-const socket = openSocket(BASE_URL);
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -12,9 +10,9 @@ const api = axios.create({
   // }
 });
 
-const getHello = async () => {
+const postUser = async (user) => {
   try {
-    const resp = await api(`/`)
+    const resp = await api.post('/users', user);
     return resp.data;
   }
   catch(e) {
@@ -23,6 +21,6 @@ const getHello = async () => {
 }
 
 export {
-  getHello,
+  postUser 
 }
 

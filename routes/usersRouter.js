@@ -33,41 +33,18 @@ usersRouter.get('/:id', async (req, res) => {
 // Register route
 usersRouter.post('/', async (req, res) => {
   try {
-    const { email, password, username, picture } = req.body;
+    const { email, password, username, image } = req.body;
     if (password) {
       const passwordDigest = await hash(password);
       const user = await User.create({
         email,
         password_digest: passwordDigest,
-        name,
+        username,
       });
       const userData = {
         id: user.id,
-        name: user.name,
+        username: user.username,
         email: user.email,
-        picture: user.picture,
-      };
-
-      const token = encode(userData);
-
-      res.json({
-        token,
-        userData,
-      });
-    }
-    else {
-      const user = await User.create({
-        email,
-        name,
-        picture
-      });
-
-      const userData = {
-        email: user.email,
-        name: user.name,
-        picture: user.picture,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
       };
 
       const token = encode(userData);
@@ -91,14 +68,13 @@ usersRouter.post('/login', async (req, res) => {
         email,
       },
     });
-    if (user !== null) {
+    if(user) {
       const authenticated = await compare(password, user.password_digest);
-      if (authenticated === true) {
+      if (authenticated) {
         const userData = {
           id: user.id,
-          name: user.name,
+          username: user.username,
           email: user.email,
-          picture: user.picture,
         };
 
         const token = encode(userData);
@@ -110,7 +86,7 @@ usersRouter.post('/login', async (req, res) => {
       }
       return res.status(401).send('Invalid Credentials');
     }
-    return res.status(401).send('Invalid Credentials');
+    return res.status(401).send('No User Found');
   } catch(e) {
     console.error(e);
   }
