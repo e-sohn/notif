@@ -10,7 +10,7 @@ const api = axios.create({
   // }
 });
 
-const postUser = async (user) => {
+const postUser = async(user) => {
   try {
     const resp = await api.post('/users', user);
     return resp.data;
@@ -20,7 +20,18 @@ const postUser = async (user) => {
   }
 }
 
+const loginUser = async(user) => {
+  try {
+    const resp = await api.post('/users/login', user);
+    return resp.data;
+  }
+  catch(e) {
+    console.error(e);
+  }
+}
+
 export {
-  postUser 
+  postUser,
+  loginUser
 }
 
