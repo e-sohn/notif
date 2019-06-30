@@ -1,31 +1,8 @@
-import React, {useState, useReducer} from 'react';
-import { postUser } from '../services/apiHelper';
+import React, {useContext} from 'react';
+import {UserContext} from '../contexts/UserContext';
 
-const RegisterForm = () => {
-  const [userInput, setUserInput] = useState({
-    email: '',
-    username: '',
-    password: ''
-  });
-
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setUserInput({ ...userInput, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(userInput);
-    postUser(userInput);
-    setUserInput({
-      email: '',
-      username: '',
-      password: ''
-    });
-  }
-
+function RegisterForm() {
+  const {userInput, handleChange, handleSubmit} = useContext(UserContext);
   return(
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
